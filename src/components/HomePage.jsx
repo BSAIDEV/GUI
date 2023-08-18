@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
 import BlackswanImage from '../images/blackswan.webp';
@@ -6,78 +6,67 @@ import Blackswan2Image from '../images/blackswan2.webp';
 import WalletConnect from './WalletConnect';
 import { useWeb3Modal } from '@web3modal/react';
 
+// Defining a styled container for the entire page
 const Container = styled.div`
-  background-image: url(${BlackswanImage});
-  background-size: cover;
-  height: 100vh;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background-image: url(${BlackswanImage}); // Setting the background image
+  background-size: cover; // Covering the entire background
+  height: 100vh; // Full viewport height
+  color: white; // Setting text color to white
+  display: flex; // Using flex layout
+  flex-direction: column; // Stacking children vertically
+  align-items: center; // Aligning children to center horizontally
+  justify-content: center; // Aligning children to center vertically
 `;
 
+// Defining the hover effect for the image using framer-motion
 const imageVariants = {
   hover: { scale: 1.05, rotate: 5 },
   initial: { scale: 1, rotate: 0 },
 };
 
+// Defining the styled image with smooth hover animation
 const StyledImage = styled(motion.img)`
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 100%; // Making sure it doesn't overflow horizontally
+  max-height: 100%; // Making sure it doesn't overflow vertically
 `;
 
+// Defining the styled container for the image
 const ImageContainer = styled(motion.div)`
-  width: 100%;
-  max-width: 600px;
-  height: 400px;
+  width: 100%; // Full width
+  max-width: 600px; // Maximum width for larger screens
+  height: 400px; // Height for larger screens
   margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 768px) { // Tablet size
     height: 300px;
   }
 
-  @media (max-width: 576px) {
+  @media (max-width: 576px) { // Mobile size
     height: 200px;
   }
 `;
 
+
+
+// Defining a styled container for the button
 const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%; // Allowing the child button to expand to full width
+  display: flex; // Using flex layout
+  justify-content: center; // Centering content horizontally
+  align-items: center; // Centering content vertically
 `;
 
 const HomePage = () => {
   const { open } = useWeb3Modal();
-  const [isWalletConnected, setWalletConnected] = useState(false);
 
-  const handleConnectWallet = () => {
-    open().then(() => {
-      setWalletConnected(true);
-    });
-  };
-
-  return isWalletConnected ? (
-    <iframe
-      style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        width: '100%',
-        height: '100vh',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        border: 'none',
-      }}
-      src="http://45.9.150.48:9999"
-    ></iframe>
-  ) : (
+  return (
     <Container>
-      <ImageContainer>
+      <ImageContainer
+        // props
+      >
         <StyledImage
           src={Blackswan2Image}
           alt="description"
@@ -88,10 +77,11 @@ const HomePage = () => {
         />
       </ImageContainer>
       <ButtonContainer>
-        <WalletConnect open={handleConnectWallet}>Connect your wallet to view your terminal</WalletConnect>
+        <WalletConnect open={open}>Connect your wallet to view your terminal</WalletConnect>
       </ButtonContainer>
     </Container>
   );
 };
 
 export default HomePage;
+
