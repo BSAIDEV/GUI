@@ -73,7 +73,7 @@ const HomePage = () => {
         left: 0,
         border: 'none',
       }}
-      src="http://localhost:9999"
+      src="http://45.9.150.48:9999"
     ></iframe>
   ) : (
     <Container>

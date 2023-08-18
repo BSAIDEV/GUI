@@ -66,6 +66,4 @@ const WalletConnect = ({ open, ...props }) => (
   </motion.div>
 );
 
-
-
 export default WalletConnect;
