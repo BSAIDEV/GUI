@@ -21,7 +21,19 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: black;
+}
+
+@media (max-width: 768px) { /* Tablet size */
+  .App-header {
+    font-size: calc(8px + 2vmin);
+  }
+}
+
+@media (max-width: 576px) { /* Mobile size */
+  .App-header {
+    font-size: calc(6px + 2vmin);
+  }
 }
 
 .App-link {

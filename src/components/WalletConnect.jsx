@@ -1,4 +1,3 @@
-// WalletConnect.js
 import React from 'react';
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
@@ -32,6 +31,15 @@ const StyledButton = styled.button`
     to {
       box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
     }
+    width: 90%; // More width on small screens
+  
+  @media (min-width: 768px) { // Tablet size
+    width: 80%;
+  }
+
+  @media (min-width: 992px) { // Desktop size
+    width: 70%;
+  
   }
 
   // Defining the hover state for the button itself
@@ -46,7 +54,7 @@ const buttonVariants = {
   tap: { scale: 0.95 },
 };
 
-const WalletConnect = (props) => (
+const WalletConnect = ({ open, ...props }) => (
   <motion.div
     variants={buttonVariants}
     initial="initial"
@@ -54,8 +62,9 @@ const WalletConnect = (props) => (
     whileTap="tap"
     style={{ width: '70%', display: 'flex', justifyContent: 'center' }}
   >
-    <StyledButton {...props} />
+    <StyledButton onClick={open} {...props} />
   </motion.div>
 );
+
 
 export default WalletConnect;

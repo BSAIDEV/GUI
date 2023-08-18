@@ -1,10 +1,10 @@
-// HomePage.js
-import React from 'react'; // Importing React library
-import styled from '@emotion/styled'; // Importing styled-components library from Emotion
-import { motion } from 'framer-motion'; // Importing framer-motion for animations
-import BlackswanImage from '../images/blackswan.webp'; // Importing the background image
-import Blackswan2Image from '../images/blackswan2.webp'; // Importing the second image
-import WalletConnect from './WalletConnect'; // Importing the WalletConnect component
+import React from 'react';
+import styled from '@emotion/styled';
+import { motion } from 'framer-motion';
+import BlackswanImage from '../images/blackswan.webp';
+import Blackswan2Image from '../images/blackswan2.webp';
+import WalletConnect from './WalletConnect';
+import { useWeb3Modal } from '@web3modal/react';
 
 // Defining a styled container for the entire page
 const Container = styled.div`
@@ -32,13 +32,23 @@ const StyledImage = styled(motion.img)`
 
 // Defining the styled container for the image
 const ImageContainer = styled(motion.div)`
-  width: 600px; // Setting the width
-  height: 400px; // Setting the height
-  margin-bottom: 20px; // Adding space below the image
-  display: flex; // Using flex layout
-  justify-content: center; // Centering content horizontally
-  align-items: center; // Centering content vertically
+  width: 100%; // Full width
+  max-width: 600px; // Maximum width for larger screens
+  height: 400px; // Height for larger screens
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 768px) { // Tablet size
+    height: 300px;
+  }
+
+  @media (max-width: 576px) { // Mobile size
+    height: 200px;
+  }
 `;
+
 
 
 // Defining a styled container for the button
@@ -49,30 +59,29 @@ const ButtonContainer = styled.div`
   align-items: center; // Centering content vertically
 `;
 
-// Defining the HomePage component
 const HomePage = () => {
+  const { open } = useWeb3Modal();
+
   return (
     <Container>
       <ImageContainer
-        initial={{ opacity: 0, y: -50 }} // Initial animation state
-        animate={{ opacity: 1, y: 0 }} // Final animation state
-        transition={{ duration: 1 }} // Animation transition properties
+        // props
       >
         <StyledImage
-          src={Blackswan2Image} // Rendering the second imported image
+          src={Blackswan2Image}
           alt="description"
-          variants={imageVariants} // Applying the defined animation variants
-          initial="initial" // Setting the initial animation state
-          whileHover="hover" // Applying the hover effect
-          transition={{ duration: 0.5 }} // Smooth transition effect
+          variants={imageVariants}
+          initial="initial"
+          whileHover="hover"
+          transition={{ duration: 0.5 }}
         />
       </ImageContainer>
       <ButtonContainer>
-        <WalletConnect>Connect your wallet to view your terminal</WalletConnect> {/* Rendering the WalletConnect component */}
+        <WalletConnect open={open}>Connect your wallet to view your terminal</WalletConnect>
       </ButtonContainer>
     </Container>
   );
 };
 
+export default HomePage;
 
-export default HomePage; // Exporting the HomePage component for use in other files
